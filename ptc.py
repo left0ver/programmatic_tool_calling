@@ -10,7 +10,7 @@ from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from functools import wraps
 from types import UnionType
-from typing import Any, Literal, Union, get_args, get_origin, get_type_hints
+from typing import Any, ClassVar, Literal, Union, get_args, get_origin, get_type_hints
 
 from openai import OpenAI
 from RestrictedPython.compile import compile_restricted_exec
@@ -321,7 +321,7 @@ class RestrictedPythonExecutor:
 class ProgrammaticAgent:
     """An OpenAI Responses API loop whose single model tool executes Python."""
 
-    EXECUTE_TOOL = {
+    EXECUTE_TOOL: ClassVar[dict[str, Any]] = {
         "type": "function",
         "name": "execute_python",
         "description": "Execute a RestrictedPython program that may call the listed tools.",
@@ -358,8 +358,7 @@ class ProgrammaticAgent:
 Call execute_python when tools or deterministic data processing are needed. The code is
 Python, cannot import modules, and must assign a JSON-compatible final value to `result`.
 Do filtering, joins, loops, arithmetic, and aggregation in that one program so only the
-compact final result returns to you. Never invent tool results. After execution, answer
-the user naturally. If execution returns an error, correct the code and retry.
+compact final result returns to you. Never invent tool results. If execution returns an error, correct the code and retry.
 
 {self.registry.prompt()}
 """
