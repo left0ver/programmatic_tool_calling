@@ -362,16 +362,18 @@ compact final result returns to you. Never invent tool results. If execution ret
 
 {self.registry.prompt()}
 """
-        items: list[Any] = [{"role": "user", "content": query}]
+        messages: list[Any] = [{"role": "user", "content": query}]
         for round_number in range(1, self.max_rounds + 1):
             response = self.client.responses.create(
                 model=self.model,
                 instructions=instructions,
-                input=items,
+                input=messages,
                 tools=[self.EXECUTE_TOOL],
                 store=False,
             )
-            items.extend(item.model_dump(exclude_none=True) for item in response.output)
+            messages.extend(
+                item.model_dump(exclude_none=True) for item in response.output
+            )
             calls = [item for item in response.output if item.type == "function_call"]
             if verbose:
                 print(f"\n--- model round {round_number} ---")
@@ -397,7 +399,7 @@ compact final result returns to you. Never invent tool results. If execution ret
                         )
                     if verbose:
                         print(f"\nExecution output:\n{payload}")
-                items.append(
+                messages.append(
                     {
                         "type": "function_call_output",
                         "call_id": call.call_id,
