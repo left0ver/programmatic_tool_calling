@@ -5,7 +5,7 @@ import pytest
 
 from ptc import (
     CodeRejectedError,
-    OpenAIProgrammaticAgent,
+    ProgrammaticAgent,
     PTCError,
     RestrictedPythonExecutor,
     StepLimitExceeded,
@@ -104,7 +104,7 @@ def test_agent_returns_execution_result_to_model() -> None:
 
     responses = Responses()
     client = SimpleNamespace(responses=responses)
-    answer = OpenAIProgrammaticAgent(client, "test-model", make_registry()).run("add")
+    answer = ProgrammaticAgent(client, "test-model", make_registry()).run("add")
 
     assert answer == "The answer is 42."
     tool_output = next(

@@ -33,7 +33,7 @@ LLM_MODEL_NAME=gpt-5.6
 最简单的方式是提供类型标注和 docstring，参数 JSON Schema 会自动生成：
 
 ```python
-from ptc import OpenAIProgrammaticAgent, ToolRegistry
+from ptc import ProgrammaticAgent, ToolRegistry
 
 registry = ToolRegistry()
 
@@ -42,7 +42,7 @@ def search_orders(customer_id: str, limit: int = 20) -> list[dict]:
     """Return recent orders with `order_id` and numeric `amount` fields."""
     return your_database_query(customer_id, limit)
 
-agent = OpenAIProgrammaticAgent(client, "gpt-5.6", registry)
+agent = ProgrammaticAgent(client, "gpt-5.6", registry)
 print(agent.run("统计客户 c-123 最近订单的总金额"))
 ```
 

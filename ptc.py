@@ -12,6 +12,7 @@ from functools import wraps
 from types import UnionType
 from typing import Any, Literal, Union, get_args, get_origin, get_type_hints
 
+from openai import OpenAI
 from RestrictedPython.compile import compile_restricted_exec
 from RestrictedPython.Eval import default_guarded_getiter
 from RestrictedPython.Guards import (
@@ -317,7 +318,7 @@ class RestrictedPythonExecutor:
         return invoke
 
 
-class OpenAIProgrammaticAgent:
+class ProgrammaticAgent:
     """An OpenAI Responses API loop whose single model tool executes Python."""
 
     EXECUTE_TOOL = {
@@ -340,7 +341,7 @@ class OpenAIProgrammaticAgent:
 
     def __init__(
         self,
-        client: Any,
+        client: OpenAI,
         model: str,
         registry: ToolRegistry,
         *,

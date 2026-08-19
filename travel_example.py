@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from ptc import OpenAIProgrammaticAgent, ToolRegistry
+from ptc import ProgrammaticAgent, ToolRegistry
 
 load_dotenv()
 registry = ToolRegistry()
@@ -100,7 +100,7 @@ def main() -> None:
         api_key=os.environ["LLM_API_KEY"],
         base_url=os.getenv("LLM_BASE_URL"),
     )
-    agent = OpenAIProgrammaticAgent(
+    agent = ProgrammaticAgent(
         client=client,
         model=os.environ["LLM_MODEL_NAME"],
         registry=registry,
