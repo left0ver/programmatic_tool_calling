@@ -1,0 +1,17 @@
+[project]
+name = "ptc"
+version = "0.1.0"
+description = "Generic Python Programmatic Tool Calling with RestrictedPython"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=3.1.0",
+    "python-dotenv>=1.2.3",
+    "restrictedpython>=8.1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
